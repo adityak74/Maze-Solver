@@ -1,0 +1,15 @@
+This code enables you to solve any maze which is given in the form of a matrix of 1's and 0's where, 1 represents a wall and 0 represents a path
+
+maze.py
+This is the main file. This has to be run.
+
+Graphics.py 
+This file is imported in Maze.py and it generates the GUI for the maze.
+
+PLay.py 
+This file gets the input from the maze.py file, regarding which cell has been visited, the coordinates are sent to the play.py file 
+which plays the tune for every tile. 
+
+Databse.py
+This file fetches the maze from the database and gives it to maze.py which in turn uses graphics.py file to generate the GUI of the maze.
+Further  if any new maze is given by the user, then it  is stored in the database
