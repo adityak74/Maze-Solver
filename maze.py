@@ -1,4 +1,5 @@
 from imp import reload
+import pygame
 from play import playtile
 import graphics
 import database
@@ -17,7 +18,7 @@ elif(sch==1):
 	print emaze;
 	database.usermaze(emaze)
 	grid=emaze
-schoice=input("ENTER \n1.DFS solution \n2.BFS solution\n:")
+schoice=input("ENTER \n1.DFS solution \n2.BFS solution\n3.Self Solve\n:")
 if(schoice == 1):
 	grid =database.grid
 	grid[database.xx][database.yy]=2
@@ -37,7 +38,8 @@ if(schoice == 1):
 	     
 		    print 'visiting %d,%d' % (x, y)
 		    a=str(x)+str(y)
-		    graphics.path(x,y),playtile(a)
+		    graphics.path(x,y)
+		    playtile(a)
 		    grid[x][y] = 3
 		    graphics.visit(x,y)
 		 
@@ -57,7 +59,53 @@ elif(schoice==2):
 	for x in range(len(ans)):
 		ans[x]=int(ans[x])
 		a=str(ans[x]%10)+str(ans[x]/10)
-		graphics.path(ans[x]%10,ans[x]/10),playtile(a)
+		graphics.path(ans[x]%10,ans[x]/10)
+		playtile(a)
 		graphics.visit(ans[x]%10,ans[x]/10)
 		if(ans[x]==database.dest):
 			graphics.dest(ans[x]%10,ans[x]/10)
+if(schoice==3):
+	x,y=10,10
+	grid =database.grid
+	grid[database.xx][database.yy]=2
+	graphics.mazedisplay(grid,1,-1)
+	screen=graphics.screen
+	red=graphics.red
+	pygame.draw.circle(screen, red, (x,y), 7, 0);
+	pygame.display.update()
+	wall=(0,0,0,255)
+	boundary=(0,255,0,255)
+	while 1:
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				crashed = True
+
+			if event.type == pygame.KEYDOWN:
+				if event.key == pygame.K_LEFT:
+					pixelcolor=screen.get_at((x-15,y))
+					if(pixelcolor!=wall and pixelcolor!=boundary):
+						x=x-15
+						graphics.mazedisplay(grid,1,-1)
+						pygame.draw.circle(screen, red, (x,y), 7, 0); 
+						pygame.display.update()               
+				elif event.key == pygame.K_RIGHT:
+					pixelcolor=screen.get_at((x+15,y))
+					if(pixelcolor!=wall and pixelcolor!=boundary):
+						x=x+15
+						graphics.mazedisplay(grid,1,-1)
+						pygame.draw.circle(screen, red, (x,y), 7, 0); 
+						pygame.display.update()
+				elif event.key == pygame.K_UP:
+					pixelcolor=screen.get_at((x,y-15))
+					if(pixelcolor!=wall and pixelcolor!=boundary):
+						y=y-15
+						graphics.mazedisplay(grid,1,-1)
+						pygame.draw.circle(screen, red, (x,y), 7, 0); 
+						pygame.display.update()                
+				elif event.key == pygame.K_DOWN:
+					pixelcolor=screen.get_at((x,y+15))
+					if(pixelcolor!=wall and pixelcolor!=boundary):
+						y=y+15
+						graphics.mazedisplay(grid,1,-1)
+						pygame.draw.circle(screen, red, (x,y), 7, 0); 
+						pygame.display.update()
