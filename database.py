@@ -8,7 +8,7 @@ def usermaze(usermaze):
 	print("the followinf maze will now be entered into database\n");
 	print usermaze
 	row1,row2,row3,row4,dest=usermaze[0],usermaze[1],usermaze[2],usermaze[3],usermaze[4]
-	db = MySQLdb.connect(host="localhost",port=80,user="root",passwd="prabhu",db="maze" )
+	db = MySQLdb.connect(host="localhost",port=80,user="root",passwd="",db="maze" )
 	cursor = db.cursor()
 	sql = "insert into etable values(%d,%d,%d,%d,%d)"%(row1,row2,row3,row4,dest)
 	try:
@@ -45,7 +45,7 @@ def inbuiltmaze():
 	choice=raw_input("ENTER \n1.LEVEL 1\n2.LEVEL2\n:")
 	choice=int(choice)
 	if(choice == 1):
-		db = MySQLdb.connect(host="localhost",port=80,user="root",passwd="prabhu",db="maze" )
+		db = MySQLdb.connect(host="localhost",port=80,user="root",passwd="",db="maze" )
 		cursor = db.cursor()
 		mazeno=random.randrange(0,4)
 		try:
@@ -57,7 +57,7 @@ def inbuiltmaze():
 			print "\n####error in accessing the database###\n"
 		db.close()
 	elif(choice == 2):
-		db = MySQLdb.connect("localhost","root","prabhu","maze" )
+		db = MySQLdb.connect("localhost","root","","maze" )
 		cursor = db.cursor()
 		mazeno=random.randrange(0,4)
 		try:
